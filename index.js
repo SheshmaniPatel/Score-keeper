@@ -40,11 +40,23 @@ const Overballs = () => (
     {ballwiseResult.map((result, i) => (
       <>
         {i % 6 === 0 ? <br /> : null}
-        <span key={i}>{result === 0 ? <strong >.</strong> : result}</span>
+        <span key={i}>{result === 0 ? <strong>.</strong> : result}</span>
         &nbsp; &nbsp; &nbsp;
       </>
     ))}
   </div>
+);
+
+function handelEvent(event){
+  event.preventDefault();
+}
+
+const Formdata = () => (
+  <form onSubmit={handelEvent}>
+    <input />
+    <input />
+    <button>Submit</button>
+  </form>
 );
 
 const App = () => (
@@ -54,7 +66,9 @@ const App = () => (
       Score : {score}/{wicket}
     </h2>
     <AllButtons />
-    <Overballs />
+    <br />
+    <Formdata />
+    <hr />
   </>
 );
 
