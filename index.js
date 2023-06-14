@@ -1,6 +1,6 @@
 var score = 0;
 var wicket = 0;
-var ballwiseResult=[];
+var ballwiseResult = [];
 
 function clickscore(num) {
   if (wicket === 10) {
@@ -9,7 +9,7 @@ function clickscore(num) {
   ballwiseResult.push(num);
   score += num;
   scoreRoot.render(<App />);
-  console.log(ballwiseResult)
+  console.log(ballwiseResult);
 }
 
 function clickwicket() {
@@ -19,7 +19,7 @@ function clickwicket() {
   ballwiseResult.push("W");
   wicket += 1;
   scoreRoot.render(<App />);
-  console.log(ballwiseResult)
+  console.log(ballwiseResult);
 }
 
 const AllButtons = () => (
@@ -35,6 +35,18 @@ const AllButtons = () => (
   </div>
 );
 
+const Overballs = () => (
+  <div>
+    {ballwiseResult.map((result, i) => (
+      <>
+        {i % 6 === 0 ? <br /> : null}
+        <span key={i}>{result === 0 ? <strong >.</strong> : result}</span>
+        &nbsp; &nbsp; &nbsp;
+      </>
+    ))}
+  </div>
+);
+
 const App = () => (
   <>
     <h1>Score Keeper</h1>
@@ -42,6 +54,7 @@ const App = () => (
       Score : {score}/{wicket}
     </h2>
     <AllButtons />
+    <Overballs />
   </>
 );
 
