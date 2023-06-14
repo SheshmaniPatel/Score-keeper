@@ -1,25 +1,17 @@
 var score = 0;
 var wicket = 0;
 var ballwiseResult = [];
+var hit = 0;
+var inputRef = React.createRef();
 
 function clickscore(num) {
-  if (wicket === 10) {
-    return;
-  }
-  ballwiseResult.push(num);
-  score += num;
+  hit = num;
   scoreRoot.render(<App />);
-  console.log(ballwiseResult);
 }
 
 function clickwicket() {
-  if (wicket === 10) {
-    return;
-  }
-  ballwiseResult.push("W");
-  wicket += 1;
+  hit = "W";
   scoreRoot.render(<App />);
-  console.log(ballwiseResult);
 }
 
 const AllButtons = () => (
@@ -47,14 +39,25 @@ const Overballs = () => (
   </div>
 );
 
-function handelEvent(event){
+function handelEvent(event) {
   event.preventDefault();
+  if (hit == "W") {
+    wicket += 1;
+  } else {
+    score += hit;
+  }
+  ballwiseResult.unshift(<span>{`${hit} : ${inputRef.current.value}`}</span>);
+  // console.log(inputRef.current.value)
+
+  inputRef.current.value = "";
+  hit = 0;
+  scoreRoot.render(<App />);
 }
 
 const Formdata = () => (
   <form onSubmit={handelEvent}>
-    <input />
-    <input />
+    <input value={hit} />
+    <input placeholder="Add a comment here" ref={inputRef} />
     <button>Submit</button>
   </form>
 );
@@ -69,6 +72,10 @@ const App = () => (
     <br />
     <Formdata />
     <hr />
+
+    {ballwiseResult.map((res, index) => (
+      <p key={index}>{res} </p>
+    ))}
   </>
 );
 
